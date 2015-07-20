@@ -1,0 +1,76 @@
+<div class="uploaderWidgetContent">
+    <div data-dojo-attach-point="uploadSuccessContainer"
+         class="uploadWidgetSuccessContainer hidden">
+        <div style="font-size:13pt;margin:20px 0;">
+            <i class="fa fa-check"></i>
+            <span>Upload Successful!</span>
+        </div>
+        <div class="btn btn-primary btn-lg" data-dojo-attach-event="click:clearSuccess">Upload More</div>
+    </div>
+
+    <div class="uploaderWidgetUploadForm">
+        <div class="uploaderWidgetDescriptionContainer">
+            <div class="descriptionHeader">Images</div>
+            <div class="descriptionText">
+                Begin by uploading the files you want to submit to the repository. When uploading completes, fill in the
+                image metadata and hit 'Commit'.
+            </div>
+        </div>
+        <div class="filesToUploadDescriptionContainer">
+            <div class="descriptionHeader">Files To Upload</div>
+            <div class="descriptionText">
+                Select images from the local filesystem. Do not close this dialog or leave this page until your uploads
+                are complete.
+            </div>
+        </div>
+        <div class="uploadFormActionsContainer">
+            <button class="btn btn-primary" data-dojo-attach-event="onclick:createNewUploadForm">
+                <i data-dojo-attach-point="addFilesIcon" class="fa fa-plus" style="margin-right:3px;"></i>Add Another
+                File
+            </button>
+        </div>
+        <div style="max-height:150px;height: 97%;overflow:auto;" data-dojo-attach-point="uploadFormContainer"></div>
+
+
+        <div class="uploaderWidgetMetadataDescriptionContainer">
+            <div class="descriptionHeader">Metadata</div>
+            <div class="descriptionText">
+                This section is optional but you should enter as much information as you know about the images. This
+                information will be applied to all images uploaded in this batch.
+            </div>
+            <div class="uploaderWidgetMetadataContainer">
+
+                <div class="uploaderWidgetMetadataEntry">
+                    <div class="uploaderWidgetMetadataInputLbl">Acquisition Date:</div>
+                    <div data-dojo-attach-point="dateInputContainer"></div>
+                </div>
+                <div class="uploaderWidgetMetadataEntry">
+                    <div class="uploaderWidgetMetadataInputLbl">Event/Tag:</div>
+                    <div data-dojo-attach-point="folderSelectContainer"></div>
+                </div>
+                <div class="uploaderWidgetMetadataEntry">
+                    <div class="uploaderWidgetMetadataInputLbl"><input type="checkbox"
+                                                                       data-dojo-attach-point="computeStatsCheckbox"
+                                                                       checked style="margin-right:5px"/>Compute
+                        Statistics:
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="hidden uploadInProcessContainer" data-dojo-attach-point="uploadInProcessContainer">
+            <div>Please be patient while your files are uploaded</div>
+            <i class="fa fa-upload fa-3x"></i>
+        </div>
+    </div>
+    <div data-dojo-attach-point="uploadImageryActionContainer">
+        <button class="btn btn-danger" data-dojo-attach-point="clearUploadFormButton"
+                data-dojo-attach-event="click:clear">Clear
+        </button>
+
+        <button class="btn btn-success" style="float: right;" data-dojo-attach-point="uploadSpectralSignatureButton"
+                data-dojo-attach-event="click:uploadData"><i data-dojo-attach-point="uploadIcon"
+                                                             style="margin-right: 3px;" class="fa fa-upload"></i>Commit
+        </button>
+    </div>
+</div>

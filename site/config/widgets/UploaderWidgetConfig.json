@@ -1,0 +1,15 @@
+{
+  "collectionField": "Folder",
+  "arcGISServerRestUrl": "http://myserver:6080/arcgis/rest/services",
+  "usernamesToService": {
+  
+  },
+  "serverLoginInfo": {
+    "server": "http://myserver:6080",
+    "tokenServiceUrl": "http://myserver:6080/arcgis/tokens/",
+    "adminTokenServiceUrl": "http://myserver:6080/arcgis/admin/generateToken",
+    "shortLivedTokenValidity": 4000,
+    "currentVersion": 10.31,
+    "hasServer": true
+  }
+}

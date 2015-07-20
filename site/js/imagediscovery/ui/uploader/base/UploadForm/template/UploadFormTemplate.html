@@ -1,0 +1,54 @@
+<div class="uploaderWidgetUploadForm">
+    <div class="uploaderWidgetDescriptionContainer">
+        <div class="descriptionHeader">Images</div>
+        <div class="descriptionText">
+            Begin by uploading the files you want to submit to the repository. When uploading completes, fill in the
+            image metadata and hit 'Commit'.
+        </div>
+    </div>
+    <div class="filesToUploadDescriptionContainer">
+        <div class="descriptionHeader">Files To Upload</div>
+        <div class="descriptionText">
+            Select images from the local filesystem. Don't forget to include any required world (.tfw,.jpw) and
+            projection (.prj) files. Do not close this dialog or leave this page until your uploads are complete. You
+            can start the upload before filling in the metadata.
+        </div>
+    </div>
+    <div class="uploadFormActionsContainer">
+        <button class="btn btn-primary" data-dojo-attach-point="addFilesButton">
+            <i data-dojo-attach-point="addFilesIcon" class="fa fa-plus" style="margin-right:3px;"></i>Add
+            Files
+        </button>
+    </div>
+    <div data-dojo-attach-point="dropzoneContainer" method="post" enctype="multipart/form-data"></div>
+    <div class="uploaderWidgetMetadataDescriptionContainer">
+        <div class="descriptionHeader">Metadata</div>
+        <div class="descriptionText">
+            This section is optional but you should enter as much information as you know about the images. This
+            information will be applied to all images uploaded in this batch. It can also be edited later, in the
+            spreadsheet.
+        </div>
+        <div class="uploaderWidgetMetadataContainer">
+         <!--   <div class="uploaderWidgetMetadataEntry">
+                <div class="uploaderWidgetMetadataInputLbl">Name:</div>
+                <input class="uploaderWidgetMetadataInput" type="text" placeholder="Enter Name"
+                       data-dojo-attach-point="nameInput">
+            </div>-->
+            <div class="uploaderWidgetMetadataEntry">
+                <div class="uploaderWidgetMetadataInputLbl">Acquisition Date:</div>
+                <input class="uploaderWidgetMetadataInput" type="text" placeholder="Date"
+                       data-dojo-attach-point="dateInput">
+            </div>
+            <div class="uploaderWidgetMetadataEntry">
+                <div class="uploaderWidgetMetadataInputLbl">Event:</div>
+                <input class="uploaderWidgetMetadataInput" type="text" placeholder="Source" value="2014-09-12"
+                       data-dojo-attach-point="sourceInput">
+            </div>
+        </div>
+
+    </div>
+    <div class="hidden uploadInProcessContainer" data-dojo-attach-point="uploadInProcessContainer">
+        <div>Please be patient while your files are uploaded</div>
+        <i class="fa fa-upload fa-3x"></i>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<form data-dojo-attach-point="uploadForm" style="margin: 15px 0" class="uploadFile" method="post" enctype="multipart/form-data">
+    <div style="float:left;height:16px;width:48px;font-size:14pt;">
+        <div data-dojo-attach-point="loadingContainer" class="hidden" style="float: left;margin-left: 20px;margin-top:3px;">
+            <div class="loadingIcon"></div>
+        </div>
+        <span class="fa fa-check hidden" style="float: right;margin-right: 5px;" data-dojo-attach-point="uploadSuccessIcon"></span>
+        <span class="fa fa-times hidden" style="float: right;margin-right: 5px;" data-dojo-attach-point="uploadFailedIcon"></span>
+        <span class="fa fa-times hidden" title="Remove Item" style="float: right;margin-right: 5px;color:red;cursor:pointer;" data-dojo-attach-event="onclick:handleRemoveItem" data-dojo-attach-point="removeUploadItem"></span>
+
+    </div>
+    <input type="file" name="file" data-dojo-attach-event="onchange:handleChange"
+           data-dojo-attach-point="uploadFileInput" />
+    <input type="hidden" name="f" value="json"/>
+
+</form>
