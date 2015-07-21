@@ -32,6 +32,7 @@ define([
                     content: {
                         token: this.token
                     },
+                    timeout: 0,
                     handleAs: "json",
                     load: lang.hitch(this, this.handleFileUploaded),
                     error: lang.hitch(this, this.handleFileUploadError)
