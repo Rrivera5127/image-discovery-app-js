@@ -25,6 +25,7 @@ define([
                 lang.mixin(this, params || {});
             },
             handleUpload: function () {
+                this._onUploadStart();
                 this.showThrobber();
                 esriRequest({
                     url: this.fileUploadEndpoint,
@@ -60,6 +61,12 @@ define([
                 if (this.uploadFileInput.value) {
                     this.handleUpload();
                 }
+            },
+            _onUploadStart: function(){
+                this.onUploadStart();
+            },
+            onUploadStart: function(){
+
             },
             _onChange: function () {
                 this.onChange();

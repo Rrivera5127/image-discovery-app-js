@@ -1,5 +1,3 @@
-//borrowed from: https://github.com/Esri/swipe-map-storytelling-template-js
-
 define([
         "dojo/_base/declare",
         "dojo/text!./template/UploaderWidgetTemplate.html",
@@ -92,7 +90,7 @@ define([
                         fileUploadEndpoint: VIEWER_UTILS.joinUrl(this.fileUploadEndpoint, "/uploads/upload"),
                         token: this.token
                     });
-                    currentUploadForm.on("change", lang.hitch(this, this.createNewUploadForm));
+                    currentUploadForm.on("uploadStart", lang.hitch(this, this.createNewUploadForm));
                     currentUploadForm.on("removeItem", lang.hitch(this, this.removeUploadFile, currentUploadForm));
 
                     this.uploadForms.push(currentUploadForm);
@@ -200,10 +198,12 @@ define([
                     this._hideNode(this.uploadImageryActionContainer);
                     this._showNode(this.uploadSuccessContainer);
                     this._hideNode(this.uploadFormContainer);
+                    this._hideNode(this.addAnotherFileButtonContainer);
                 }
                 ,
                 clearSuccess: function () {
                     this.clear();
+                    this._showNode(this.addAnotherFileButtonContainer);
                     this._showNode(this.uploadImageryActionContainer);
                     this._hideNode(this.uploadSuccessContainer);
                     this._showNode(this.uploadFormContainer);
