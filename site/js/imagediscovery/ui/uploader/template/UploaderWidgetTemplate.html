@@ -2,30 +2,53 @@
     <div data-dojo-attach-point="uploadSuccessContainer"
          class="uploadWidgetSuccessContainer hidden">
         <div style="font-size:13pt;margin:20px 0;">
-            <i class="fa fa-check"></i>
-            <span>Upload Successful!</span>
+            <span>
+                <i class="fa fa-check"></i>
+                <span>Upload Successful!</span>
+            </span>
+
+            <div style="margin-top: 11px;font-size: 10pt;">Images Added: <span
+                    data-dojo-attach-point="uploadSuccessAddCount"></span>
+                <!--Rejected: <span  data-dojo-attach-point="uploadSuccessRejectCount"></span>-->
+            </div>
         </div>
         <div class="btn btn-primary btn-lg" data-dojo-attach-event="click:clearSuccess">Upload More</div>
     </div>
+    <div data-dojo-attach-point="uploadSuccessButNoImageryContainer"
+         class="uploadWidgetSuccessContainer hidden">
+        <div style="font-size:13pt;margin:20px 0;">
+            <span>
+            <i class="fa fa-warning"></i>
+            <span>No Imagery Was Added</span>
+            </span>
 
+            <div style="margin-top: 11px;font-size: 10pt;color: #F00;">Please check that the uploaded files contain
+                imagery.
+            </div>
+        </div>
+        <div class="btn btn-primary btn-lg" data-dojo-attach-event="click:clearSuccess">Try Again</div>
+    </div>
     <div class="uploaderWidgetUploadForm">
         <div class="uploaderWidgetDescriptionContainer">
             <div class="descriptionHeader">Images</div>
             <div class="descriptionText">
-                Begin by uploading the files you want to submit to the repository. When uploading completes, fill in the
+                Begin by uploading the files you want to submit to the repository. When uploading completes, fill in
+                the
                 image metadata and hit 'Commit'.
             </div>
         </div>
         <div class="filesToUploadDescriptionContainer">
             <div class="descriptionHeader">Files To Upload</div>
             <div class="descriptionText">
-                Select images from the local filesystem. Do not close this dialog or leave this page until your uploads
+                Select images from the local filesystem. Do not close this dialog or leave this page until your
+                uploads
                 are complete.
             </div>
         </div>
         <div class="uploadFormActionsContainer" data-dojo-attach-point="addAnotherFileButtonContainer">
             <button class="btn btn-primary" data-dojo-attach-event="onclick:createNewUploadForm">
-                <i data-dojo-attach-point="addFilesIcon" class="fa fa-plus" style="margin-right:3px;"></i>Add Another
+                <i data-dojo-attach-point="addFilesIcon" class="fa fa-plus" style="margin-right:3px;"></i>Add
+                Another
                 File
             </button>
         </div>

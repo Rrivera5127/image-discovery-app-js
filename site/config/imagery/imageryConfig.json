@@ -59,6 +59,16 @@
       "showMGRS": false,
       "showUTM": false,
       "showScale": false
+    },
+    "initialExtent": {
+      "xmin": -17855689.807412494,
+      "ymin": 1315298.790904654,
+      "xmax": -3766816.753892552,
+      "ymax": 8760876.842105122,
+      "spatialReference": {
+        "wkid": 102100,
+        "latestWkid": 3857
+      }
     }
   },
   "geometryService": "http://servicesbeta.esri.com/ArcGIS/rest/services/Geometry/GeometryServer",

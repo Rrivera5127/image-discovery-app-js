@@ -40,10 +40,11 @@ define([
                     itemIds: [],
                     rasterType: "Raster Dataset",
                     buildThumbnail: false,
-                    buildPyramids: true,
-                    minimumCellSizeFactor: 0,
-                    maximumCellSizeFactor: 10,
-                    attributes: {}
+                    buildPyramids: false,
+                    //minimumCellSizeFactor: 0,
+                    //maximumCellSizeFactor: 10,
+                    attributes: {},
+                    geodataTransformApplyMethod: "esriGeodataTransformApplyAppend"
                 },
                 token: null,
                 fileUploadEndpoint: "",
@@ -170,12 +171,39 @@ define([
                     alert("There was an error adding imagery to the dataset");
                 },
                 handleAddResponse: function (response) {
-                    this.handleUploadComplete();
-                },
-
-                handleUploadComplete: function () {
                     this._clear();
-                    this.showSuccess();
+                    if (response) {
+                        var processedAddResponse = this._processAddResponse(response);
+                        if (processedAddResponse.added && processedAddResponse.added.length) {
+                            this.showSuccess(processedAddResponse.added.length, processedAddResponse.rejected.length);
+                        }
+                        else {
+                            this.showSuccessButNoImagery();
+                        }
+                    }
+                    else {
+                        alert("There was an error adding imagery to the dataset");
+                    }
+                },
+                _processAddResponse: function (response) {
+                    var processedResponse = {
+                        added: [],
+                        rejected: []
+                    };
+                    if (!response || !response.addResults || !response.addResults.length) {
+                        return response;
+                    }
+                    var i;
+                    for (i = 0; i < response.addResults.length; i++) {
+                        if (response.addResults[i].success) {
+                            processedResponse.added.push(response.addResults[i]);
+                        }
+                        else {
+                            processedResponse.rejected.push(response.addResults[i]);
+                        }
+                    }
+                    return processedResponse;
+
                 },
                 showUploadButton: function () {
                     this._showNode(this.uploadSpectralSignatureButton);
@@ -193,19 +221,29 @@ define([
 
                 }
                 ,
-
-                showSuccess: function () {
+                showSuccessButNoImagery: function () {
+                    this._hideNode(this.uploadImageryActionContainer);
+                    this._showNode(this.uploadSuccessButNoImageryContainer);
+                    this._hideNode(this.uploadFormContainer);
+                    this._hideNode(this.addAnotherFileButtonContainer);
+                },
+                showSuccess: function (added, rejected) {
                     this._hideNode(this.uploadImageryActionContainer);
                     this._showNode(this.uploadSuccessContainer);
                     this._hideNode(this.uploadFormContainer);
                     this._hideNode(this.addAnotherFileButtonContainer);
-                }
-                ,
+
+                    domAttr.set(this.uploadSuccessAddCount,"innerHTML",added + "");
+                    //domAttr.set(this.uploadSuccessRejectCount,"innerHTML",rejected + "");
+
+
+                },
                 clearSuccess: function () {
                     this.clear();
                     this._showNode(this.addAnotherFileButtonContainer);
                     this._showNode(this.uploadImageryActionContainer);
                     this._hideNode(this.uploadSuccessContainer);
+                    this._hideNode(this.uploadSuccessButNoImageryContainer);
                     this._showNode(this.uploadFormContainer);
                 }
                 ,
