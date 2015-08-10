@@ -41,7 +41,6 @@ define([
             },
             handleFileUploaded: function (response) {
                 this.uploadResponse = response;
-                console.log("handleFileUploaded");
                 if (response && response.success) {
                     this.showUploadSuccess();
                     window.setTimeout(lang.hitch(this, this.showRemoveUploadItem), 2000);
@@ -53,7 +52,6 @@ define([
             },
             handleFileUploadError: function (response) {
                 this.uploadResponse = response;
-                console.log("handleFileUploadError");
                 this.showUploadError();
 
             },

@@ -71,11 +71,11 @@ define([
                 _uploaderShow: function () {
                     this.loadUploaderWidgetConfiguration(lang.hitch(this, function (fileUploadUrlObj) {
                         if (fileUploadUrlObj && fileUploadUrlObj.token) {
-                            console.log("creating uploader");
                             this.uploaderWidget = new UploaderWidget({
                                 fileUploadEndpoint: fileUploadUrlObj.serviceUrl,
                                 token: fileUploadUrlObj.token,
-                                folders: fileUploadUrlObj.folders
+                                folders: fileUploadUrlObj.folders,
+                                collectionField: this.collectionField
                             });
                             this.show();
                             this.setContent(this.uploaderWidget.domNode);
@@ -161,7 +161,7 @@ define([
                         returnDistinctValues: true,
                         f: "json",
                         token: token,
-                        outFields: "Folder"
+                        outFields: this.collectionField
                     };
                     esriRequest({
                         url: VIEWER_UTILS.joinUrl(serviceUrl, "query"),

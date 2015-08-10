@@ -131,7 +131,7 @@
     "create": false
   },
   "swipeWidget": {
-    "create": false
+    "create": true
   },
   "reflectivityWidget": {
     "create": false,

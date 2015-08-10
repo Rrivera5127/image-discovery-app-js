@@ -12,19 +12,16 @@ define([
         "dojox/uuid/generateTimeBasedUuid",
         "dojo/dom-attr",
         "dojo/Deferred",
-        "dojo/request/xhr",
-        "../../lib/dropzone/DropZone",
-        'xstyle/css!../../lib/dropzone/DropZone.css'
+        "dojo/request/xhr"
 
     ],
-    function (declare, keys, template, dropzoneTemplate, _WidgetBase, _TemplatedMixin, domClass, domStyle, lang, Uuid, generateTimeBasedUuid, domAttr, Deferred, xhr, Dropzone, dropzoneTheme) {
+    function (declare, keys, template, dropzoneTemplate, _WidgetBase, _TemplatedMixin, domClass, domStyle, lang, Uuid, generateTimeBasedUuid, domAttr, Deferred, xhr) {
         return declare([_WidgetBase, _TemplatedMixin], {
             templateString: template,
             fileUploadEndpoint: "",
             constructor: function (params) {
                 Uuid.setGenerator(generateTimeBasedUuid);
                 lang.mixin(this, params || {});
-                console.log("new upload endpoint: " + this.fileUploadEndpoint);
             },
 
             postCreate: function () {
@@ -53,8 +50,6 @@ define([
                         this.on("addedfile", lang.hitch(self, function () {
                             this.setUploadSending();
                         }));
-
-
                     }
                 });
             },
@@ -103,11 +98,9 @@ define([
                 else {
 
                     this.finalizeFileUpload(files).then(lang.hitch(this, function (data) {
-                        var metadataObj = this.getMetadata();
-                    }))
+                    }));
                 }
                 return def;
-
             },
             finalizeFileUpload: function (files) {
                 var title = this.getTitle();
@@ -120,24 +113,6 @@ define([
                     handleAs: "json"
                 });
             },
-            getMetadata: function () {
-                var metadata = {};
-                var name = this.nameInput.value;
-                var date = this.dateInput.value;
-                var source = this.sourceInput.value;
-                if (name) {
-                    metadata.name = name;
-                }
-                if (date) {
-                    metadata.AcquisitionDate = date;
-                }
-                if (source) {
-                    metadata.folder = source;
-                }
-                return metadata;
-            },
-
-
             joinUrl: function (url, appendString) {
                 if (!url) {
                     url = "";
@@ -161,7 +136,6 @@ define([
                 if (this.currentDropZone && this.currentDropZone.files) {
                     for (i = 0; i < this.currentDropZone.files.length; i++) {
                         currentFile = this.currentDropZone.files[i];
-                        console.log("status: " + currentFile.status);
                         if (currentFile && currentFile.status === "success") {
                             addedFiles.push({
                                 name: currentFile.name

@@ -24,12 +24,11 @@ define([
         "esri/request",
         "dojo/date/locale",
         "dojo/store/Memory",
-        "dijit/form/ComboBox"
-
-
+        "dijit/form/ComboBox",
+        "dojo/_base/array"
     ],
     //  function (declare, template, theme, topic, lang, sniff, doshareWithOrgm,  UITemplatedWidget, UploaderViewModel, Move, con, domConstruct, domStyle, Button) {
-    function (declare, template, theme, fontAwesome, ArcGISImageServiceLayer, topic, lang, sniff, dom, UITemplatedWidget, UploaderViewModel, Move, con, domConstruct, array, domStyle, Button, UploadForm, domClass, domAttr, esriConfig, DateTextBox, esriRequest, locale, Memory, FilteringSelect) {
+    function (declare, template, theme, fontAwesome, ArcGISImageServiceLayer, topic, lang, sniff, dom, UITemplatedWidget, UploaderViewModel, Move, con, domConstruct, array, domStyle, Button, UploadForm, domClass, domAttr, esriConfig, DateTextBox, esriRequest, locale, Memory, FilteringSelect, array) {
         return declare(
             [UITemplatedWidget],
             {
@@ -73,11 +72,12 @@ define([
 
                 },
                 createFolderSelect: function () {
+                    this.folderStore = new Memory({
+                        data: this.folders
+                    });
                     this.sourceInput = new FilteringSelect({
                         maxHeight: 150,
-                        store: new Memory({
-                            data: this.folders
-                        }),
+                        store: this.folderStore,
                         searchAttr: "name"
                     }, this.folderSelectContainer);
                     this.sourceInput.startup();
@@ -102,7 +102,6 @@ define([
                     for (var i = 0; i < this.uploadForms.length; i++) {
                         if (this.uploadForms[i] === uploadFile) {
                             this.uploadForms.splice(i, 1);
-                            console.log("found item");
                             break;
                         }
                     }
@@ -132,10 +131,10 @@ define([
                     }
                     if (date) {
                         metadata.AcquisitionDate = locale.format(date, {selector: 'date', datePattern: 'yyyy-MM-dd'});
-                        ;
+
                     }
                     if (source) {
-                        metadata.folder = source;
+                        metadata[this.collectionField] = source;
                     }
                     return metadata;
                 },
@@ -171,11 +170,12 @@ define([
                     alert("There was an error adding imagery to the dataset");
                 },
                 handleAddResponse: function (response) {
+                    var source = this.sourceInput.get("value");
                     this._clear();
                     if (response) {
                         var processedAddResponse = this._processAddResponse(response);
                         if (processedAddResponse.added && processedAddResponse.added.length) {
-                            this.showSuccess(processedAddResponse.added.length, processedAddResponse.rejected.length);
+                            this.showSuccess(processedAddResponse.added.length, processedAddResponse.rejected.length,source);
                         }
                         else {
                             this.showSuccessButNoImagery();
@@ -227,16 +227,20 @@ define([
                     this._hideNode(this.uploadFormContainer);
                     this._hideNode(this.addAnotherFileButtonContainer);
                 },
-                showSuccess: function (added, rejected) {
+                showSuccess: function (added, rejected,source) {
                     this._hideNode(this.uploadImageryActionContainer);
                     this._showNode(this.uploadSuccessContainer);
                     this._hideNode(this.uploadFormContainer);
                     this._hideNode(this.addAnotherFileButtonContainer);
 
-                    domAttr.set(this.uploadSuccessAddCount,"innerHTML",added + "");
+                    domAttr.set(this.uploadSuccessAddCount, "innerHTML", added + "");
                     //domAttr.set(this.uploadSuccessRejectCount,"innerHTML",rejected + "");
 
+                    var sourceQuery = this.folderStore.query({name: source});
+                    if (sourceQuery.length === 0) {
+                        this.folderStore.put({name: source, id: source});
 
+                    }
                 },
                 clearSuccess: function () {
                     this.clear();
@@ -257,7 +261,8 @@ define([
                     if (domClass.contains(node, "hidden")) {
                         domClass.remove(node, "hidden");
                     }
-                },
+                }
+                ,
             });
     })
 ;
